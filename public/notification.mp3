@@ -1,0 +1,18 @@
+// بديل بدون ملف صوتي
+const playNotificationSound = () => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  oscillator.frequency.value = 880;
+  gainNode.gain.value = 0.1;
+  
+  oscillator.start();
+  setTimeout(() => {
+    oscillator.stop();
+    audioContext.close();
+  }, 300);
+};
